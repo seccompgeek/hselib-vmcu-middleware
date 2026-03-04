@@ -1,0 +1,4 @@
+/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build/CMakeFiles/hselib.dir
+/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build/CMakeFiles/hselib_rust_cargo.dir
+/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build/CMakeFiles/edit_cache.dir
+/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build/CMakeFiles/rebuild_cache.dir

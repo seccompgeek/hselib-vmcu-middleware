@@ -1,0 +1,10 @@
+# Default build target for this crate: Cortex-M7, Thumb-2, hardware FPU,
+# hard-float ABI — matches the S32K344 silicon and the rest of hselib.
+[build]
+target = "thumbv7em-none-eabihf"
+
+[target.thumbv7em-none-eabihf]
+# NOTE: rustflags (target-cpu, debug path remapping) are injected by CMake
+# via the RUSTFLAGS environment variable in the add_custom_command so that
+# CMake can supply the build-machine's absolute path for --remap-path-prefix.
+# Do NOT add rustflags here; they would be silently overridden by the env var.

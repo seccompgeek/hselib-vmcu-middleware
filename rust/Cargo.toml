@@ -1,0 +1,18 @@
+[package]
+name = "hselib_rust"
+version = "0.1.0"
+edition = "2021"
+
+# Build as a static C-compatible library so it can be linked into hselib.
+[lib]
+name = "hselib_rust"
+crate-type = ["staticlib"]
+
+[dependencies]
+# Minimal panic handler for bare-metal no_std builds.
+panic-halt = "0.2"
+
+[profile.release]
+opt-level  = "s"   # Size-optimised (appropriate for embedded)
+lto        = true
+codegen-units = 1

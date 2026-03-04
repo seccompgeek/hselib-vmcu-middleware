@@ -1,0 +1,45 @@
+# .gdbinit.template — source path remapping for cross-machine debugging
+#
+# Context
+# -------
+# The library is built with -fdebug-prefix-map (C) and --remap-path-prefix
+# (Rust) so that all DWARF source references start with the canonical prefix
+# "HSELib/" regardless of where the sources lived on the build machine.
+#
+# Usage on the debug machine
+# --------------------------
+# 1. Copy this file to one of:
+#      a) The directory from which you launch GDB           (./.gdbinit)
+#      b) Your home directory                               (~/.gdbinit)
+#      c) Alongside your application ELF                    (next to *.elf)
+#    and rename it to ".gdbinit".
+#
+# 2. Edit the ONLY line that needs changing below:
+#    Replace  /path/to/HSELib  with the absolute path where this repo lives
+#    on THIS (the debug) machine.
+#
+# 3. If GDB refuses to load the file, run once:
+#      echo "set auto-load safe-path /" >> ~/.gdbinit
+#
+# How it works
+# ------------
+# "set substitute-path FROM TO" tells GDB to rewrite every source path that
+# starts with FROM to start with TO instead.  Because the build step already
+# stripped the build machine's prefix (replacing it with "HSELib"), a single
+# rule here remaps everything — C sources, headers, and Rust sources alike.
+#
+# ─────────────────────────────────────────────────────────────────────────────
+# ▼▼▼  Edit this line only  ▼▼▼
+set substitute-path HSELib /path/to/HSELib
+# ▲▲▲  Edit this line only  ▲▲▲
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Cargo dependency sources (panic-halt etc.) were remapped to ".cargo-home".
+# Point GDB at the local Cargo home; typically ~/.cargo on Linux.
+# Uncomment if you need to step into dependency crate sources:
+# set substitute-path .cargo-home /home/YOUR_USER/.cargo
+
+# Optional conveniences for embedded GDB sessions
+# set pagination off
+# set print pretty on
+# set print array on

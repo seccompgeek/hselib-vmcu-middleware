@@ -1,0 +1,2 @@
+# Hashes of file build rules.
+6dd498fc269ec86262cd83068446c9c2 ../rust/target/thumbv7em-none-eabihf/release/libhselib_rust.a

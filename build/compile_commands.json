@@ -1,0 +1,292 @@
+[
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/BlankCheck.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/BlankCheck.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/BlankCheck.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/ClearAllErrorFlags.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/ClearAllErrorFlags.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/ClearAllErrorFlags.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/ClearLock.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/ClearLock.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/ClearLock.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/FlashErase.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/FlashErase.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/FlashErase.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/FlashInit.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/FlashInit.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/FlashInit.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/FlashProgram.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/FlashProgram.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/FlashProgram.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/GetBaseAddressOfSector.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/GetBaseAddressOfSector.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/GetBaseAddressOfSector.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/GetLock.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/GetLock.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/GetLock.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/ProgramVerify.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/ProgramVerify.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/ProgramVerify.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/SetLock.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/SetLock.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/SetLock.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/flash.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/flash.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/flash.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/host_stm.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/host_stm.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/host_stm.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_b_catalog_formatting.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_b_catalog_formatting.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_b_catalog_formatting.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_config.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_config.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_config.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_crypto.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_crypto.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_crypto.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_dcm_register.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_dcm_register.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_dcm_register.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_debug_auth_mode.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_debug_auth_mode.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_debug_auth_mode.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_demo_app_config.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_demo_app_config.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_demo_app_config.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_get_capabilities.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_get_capabilities.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_get_capabilities.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_get_version.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_get_version.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_get_version.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_global_variables.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_global_variables.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_global_variables.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_aead.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_aead.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_aead.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_attrs.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_attrs.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_attrs.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_authenc.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_authenc.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_authenc.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_boot.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_boot.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_boot.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_cipher.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_cipher.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_cipher.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_cmac_with_counter.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_cmac_with_counter.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_cmac_with_counter.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_common.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_common.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_common.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_ecc.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_ecc.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_ecc.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_flash.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_flash.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_flash.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_format_key_catalogs.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_format_key_catalogs.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_format_key_catalogs.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_hash.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_hash.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_hash.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_impex_stream.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_impex_stream.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_impex_stream.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_import_key.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_import_key.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_import_key.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_kdf.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_kdf.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_kdf.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_mac.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_mac.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_mac.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_monotonic_counters.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_monotonic_counters.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_monotonic_counters.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_rng.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_rng.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_rng.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_rsa_cipher.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_rsa_cipher.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_rsa_cipher.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_sign.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_sign.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_sign.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_sys_authorization.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_sys_authorization.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_sys_authorization.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_test.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_test.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_test.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_utils.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_utils.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_utils.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_host_wrappers.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_wrappers.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_wrappers.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_irq_integration.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_irq_integration.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_irq_integration.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_keys_allocator.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_keys_allocator.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_keys_allocator.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_lib_stubs.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_lib_stubs.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_lib_stubs.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_memory_update_protocol.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_memory_update_protocol.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_memory_update_protocol.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_monotonic_cnt.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_monotonic_cnt.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_monotonic_cnt.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_mu.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_mu.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_mu.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_mu_config.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_mu_config.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_mu_config.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_secure_boot.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_secure_boot.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_secure_boot.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_she_command_main.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_she_command_main.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_she_command_main.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_she_commands.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_she_commands.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_she_commands.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_sys_init.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_sys_init.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_sys_init.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/hse_utest.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_utest.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_utest.c"
+},
+{
+  "directory": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/build",
+  "command": "/usr/bin/gcc -I/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include -g -Wall -Wextra -Wno-unused-parameter -fdebug-prefix-map=/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib=HSELib -std=gnu11 -o CMakeFiles/hselib.dir/src/pflash.c.o -c /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/pflash.c",
+  "file": "/home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/pflash.c"
+}
+]

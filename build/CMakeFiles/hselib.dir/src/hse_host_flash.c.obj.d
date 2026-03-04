@@ -1,0 +1,21 @@
+CMakeFiles/hselib.dir/src/hse_host_flash.c.obj: \
+ /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/src/hse_host_flash.c \
+ /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include/hse_host_flash.h \
+ /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include/hse_common_types.h \
+ /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include/hse_std_typedefs.h \
+ /usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h \
+ /usr/lib/gcc/arm-none-eabi/10.3.1/include/stdbool.h \
+ /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include/hse_platform.h \
+ /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include/hse_target.h \
+ /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include/hse_compile_defs.h \
+ /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include/hse_b_config.h \
+ /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include/hse_defs.h \
+ /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include/hse_compiler_abs.h \
+ /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include/hse_fls_registers.h \
+ /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include/hse_Platform_Types.h \
+ /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include/hse_StdRegMacros.h \
+ /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include/hse_fls_api.h \
+ /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include/hse_fls_type.h \
+ /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include/hse_host_soc_fls_type.h \
+ /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include/hse_host_flashSrv.h \
+ /home/martin/Downloads/S32K3_HSE_DemoExamples/HSELib/include/hse_fls_api.h
