@@ -1054,67 +1054,158 @@ secure_comm_init_she_keys()
 
 ---
 
-### Secure Send Flow (`secure_send_to_ap_encrypted`)
+### `secure_send` and `secure_receive`
 
+These internal functions handle all encryption and authentication. The four API functions below treat them as black boxes.
+
+The receiver never needs to be told the IV separately — it is **prepended to every frame**. The wire layout is `IV (16 B) | ciphertext (n B) | CMAC tag (16 B)`. The CMAC covers the IV too, so any tampering with it is caught before decryption.
+
+**`secure_send`** — generate IV, encrypt, sign, transmit as one frame.
+
+```mermaid
+flowchart TD
+    A([🔐 secure_send<br/>안전한 데이터 전송])
+    A --> IV[🎲 Generate Random IV]
+    IV --> I{IV 생성 성공?}
+    I -- 아니오 --> RF([⚠️ ❌ fail])
+    I -- 예 --> ENC[🔒 AES-CBC Encrypt<br/>Plaintext]
+    ENC --> E{Encrypt 성공?}
+    E -- 아니오 --> RF
+    E -- 예 --> MAC[🛡️ AES-CMAC Sign<br/>IV + Ciphertext]
+    MAC --> M{MAC 생성 성공?}
+    M -- 아니오 --> RF
+    M -- 예 --> TX[📡 UART Send<br/>IV + Ciphertext + CMAC Tag]
+    TX --> T{Send 성공?}
+    T -- 아니오 --> RF
+    T -- 예 --> OK([✅ ok])
+    classDef fail fill:#f1948a,stroke:#c0392b,color:#5d1212
+    classDef ok fill:#82e0aa,stroke:#1e8449,color:#0d3b21
+    class RF fail
+    class OK ok
 ```
-secure_send_to_ap_encrypted(data, len)
-    │
-    ├─▶ validate: data != NULL, 0 < len ≤ 224, len % 16 == 0    ──▶ return false
-    │
-    ├─▶ validate: CIPHER_KEY_HANDLE and MAC_KEY_HANDLE set        ──▶ return false
-    │
-    ├─▶ hse::get_rng_drg4(&mut frame[0..16])                     ──fail──▶ return false
-    │       └─▶ fill frame[0..16] with fresh random IV (DRG4)
-    │
-    ├─▶ hse::aes_cbc_encrypt(cipher_handle,                      ──fail──▶ return false
-    │       iv = frame[0..16], input = data → frame[16..16+len])
-    │       └─▶ encrypt plaintext into frame
-    │
-    ├─▶ hse::aes_cmac_generate(mac_handle,                       ──fail──▶ return false
-    │       input = frame[0..16+len], tag → frame[16+len..32+len])
-    │       └─▶ MAC over IV ‖ ciphertext, tag appended
-    │
-    ├─▶ send_data(backend, frame[0..32+len])                     ──fail──▶ return false
-    │       └─▶ transmit complete frame over UART
-    │
-    └─▶ return true
 
-    On-wire frame:
-    ┌──────────────┬────────────────────────┬──────────────┐
-    │   IV  (16 B) │   Ciphertext  (len B)  │  CMAC (16 B) │
-    └──────────────┴────────────────────────┴──────────────┘
-                          total = len + 32 bytes  (max 256 B)
+**`secure_receive`** — receive frame, extract IV, verify CMAC, then decrypt.
+
+
+```mermaid
+flowchart TD
+    A([🔐 secure_receive<br/>안전한 데이터 수신])
+    A --> RX[📡 UART Receive<br/>IV + Ciphertext + CMAC Tag]
+    RX --> R{Receive 성공?}
+    R -- 아니오 --> RF([⚠️ ❌ fail])
+    R -- 예 --> MAC[🛡️ CMAC Verify<br/>IV + Ciphertext]
+    MAC --> M{Tag valid?}
+    M -- 아니오 --> TM([⚠️ ❌ fail<br/>tampered frame])
+    M -- 예 --> DEC[🔓 AES-CBC Decrypt<br/>Ciphertext]
+    DEC --> D{Decrypt 성공?}
+    D -- 아니오 --> RF
+    D -- 예 --> OK([✅ ok<br/>Forward data to app])
+    classDef fail fill:#f1948a,stroke:#c0392b,color:#5d1212
+    classDef ok fill:#82e0aa,stroke:#1e8449,color:#0d3b21
+    class RF,TM fail
+    class OK ok
 ```
 
 ---
 
-### Secure Receive Flow (`secure_recv_from_ap_encrypted`)
+### `send_to_ap`
 
+Validate input, then hand off to `secure_send`.
+
+```mermaid
+flowchart TD
+    A([📤 send_to_ap<br/>Main-Core로 데이터 전송])
+
+    A --> S[🔐 secure_send<br/>payload 전송]
+
+    S --> D{Send 성공?}
+    D -- 아니오 --> RF([⚠️ ❌ return false])
+    D -- 예 --> OK([✅ return true])
+
+    classDef fail fill:#f1948a,stroke:#c0392b,color:#5d1212
+    classDef ok fill:#82e0aa,stroke:#1e8449,color:#0d3b21
+
+    class RF fail
+    class OK ok
 ```
-secure_recv_from_ap_encrypted(buf, expected_ct_len, out_len)
-    │
-    ├─▶ validate: buf != NULL, out_len != NULL                    ──▶ return false
-    │             0 < expected_ct_len ≤ 224, % 16 == 0
-    │
-    ├─▶ validate: CIPHER_KEY_HANDLE and MAC_KEY_HANDLE set        ──▶ return false
-    │
-    ├─▶ receive_data(backend, frame[0..expected_ct_len+32])       ──fail──▶ return false
-    │       └─▶ receive complete frame from UART
-    │
-    ├─▶ hse::aes_cmac_verify(mac_handle,                         ──▶ MacVerifyFailed
-    │       input = frame[0..16+ct_len],                                  → return false
-    │       tag   = frame[16+ct_len..32+ct_len])
-    │       │   verify CMAC over IV ‖ ciphertext BEFORE decrypting
-    │       └─▶ on HseError::VerifyFailed  ──▶ return false
-    │
-    ├─▶ hse::aes_cbc_decrypt(cipher_handle,                      ──fail──▶ return false
-    │       iv  = frame[0..16],
-    │       ct  = frame[16..16+ct_len] → buf)
-    │       └─▶ decrypt verified ciphertext
-    │
-    ├─▶ *out_len = expected_ct_len
-    │
-    └─▶ return true
+
+---
+
+### `recv_from_ap`
+
+Validate input, then hand off to `secure_receive`.
+
+```mermaid
+flowchart TD
+    A([📥 recv_from_ap<br/>Main-Core 데이터 수신])
+
+    A --> S[🔐 secure_receive<br/>payload 수신]
+
+    S --> D{Receive 성공?}
+    D -- 아니오 --> RF([⚠️ ❌ return false])
+    D -- 예 --> OK([✅ return true])
+
+    classDef fail fill:#f1948a,stroke:#c0392b,color:#5d1212
+    classDef ok fill:#82e0aa,stroke:#1e8449,color:#0d3b21
+
+    class RF fail
+    class OK ok
+```
+
+---
+
+### `req_save_data`
+
+Compute an HMAC-SHA-256 tag over the data, append it, then hand the combined payload to `secure_send`.
+
+```mermaid
+flowchart TD
+    A([💾 req_save_data<br/>Main-Core Disk에 데이터 저장 요청])
+    A --> H[🔏 HMAC Sign<br/>frame = data+tag]
+
+    H --> D{HMAC 성공?}
+    D -- 아니오 --> RF([⚠️ ❌ return false])
+
+    D -- 예 --> S[🔐 secure_send<br/>frame 전송]
+    S --> E{Send 성공?}
+    E -- 아니오 --> RF
+    E -- 예 --> OK([✅ return true])
+
+    classDef fail fill:#f1948a,stroke:#c0392b,color:#5d1212
+    classDef ok fill:#82e0aa,stroke:#1e8449,color:#0d3b21
+    class RF fail
+    class OK ok
+```
+
+---
+
+### `req_saved_data`
+
+Receive via `secure_receive`, verify the embedded HMAC tag, then send an acknowledgement back via `secure_send`.
+
+```mermaid
+flowchart TD
+    A([📂 req_saved_data<br/>Main-Core 저장 데이터 요청<br/>및 무결성 확인])
+
+    A --> R[🔐 secure_receive<br/>payload 수신]
+
+    R --> RC{Receive 성공?}
+    RC -- 아니오 --> RF([⚠️ return false])
+
+    RC -- 예 --> H[🔏 Verify HMAC Tag]
+
+    H --> D{Tag valid?}
+
+    D -- 아니오 --> ACK0[📤 secure_send<br/>ACK = 0]
+    ACK0 --> RF
+
+    D -- 예 --> ACK1[📤 secure_send<br/>ACK = 1]
+    ACK1 --> OK([✅ return true<br/>data written to output buffer])
+
+    classDef fail fill:#f1948a,stroke:#c0392b,color:#5d1212
+    classDef ok fill:#82e0aa,stroke:#1e8449,color:#0d3b21
+    class RF fail
+    class OK ok
 ```
 
 ---
@@ -1150,17 +1241,32 @@ bool secure_recv_from_ap_encrypted(uint8_t *buf,
                                    uint32_t *out_len);
 ```
 
-#### Plain (unencrypted) transport
+#### Secure transport (main API)
 
 ```c
-bool send_to_ap(const uint8_t *data, uint32_t len);           /* LPUART TX */
-bool send_to_ap2(const uint8_t *data, uint32_t len,
-                 bool use_flexio);                            /* LPUART or FlexIO TX */
-bool recv_from_ap(uint8_t *buf, uint32_t len);                /* LPUART RX */
-bool recv_from_ap2(uint8_t *buf, uint32_t len,
-                   bool use_flexio);                          /* LPUART or FlexIO RX */
-bool req_save_data(const uint8_t *data, uint32_t len);        /* send over LPUART */
-bool req_saved_data(uint8_t *buf, uint32_t len);              /* receive over LPUART */
+/* Encrypt and send len bytes over LPUART via secure channel.
+   len must be a non-zero multiple of 16, max 224 bytes. */
+bool send_to_ap(const uint8_t *data, uint32_t len);
+
+/* Receive and decrypt a secure frame from LPUART.
+   len is the expected plaintext length (multiple of 16, max 224). */
+bool recv_from_ap(uint8_t *buf, uint32_t len);
+
+/* HMAC-authenticate then encrypt data and send over LPUART.
+   len must be a non-zero multiple of 16, max 192 bytes. */
+bool req_save_data(const uint8_t *data, uint32_t len);
+
+/* Receive, decrypt, and HMAC-verify data from LPUART.
+   Sends back an ack (1=ok, 0=fail) via the secure channel.
+   On success *out_len is set to the verified data length. */
+bool req_saved_data(uint8_t *buf, uint32_t data_len, uint32_t *out_len);
+```
+
+#### Plain transport (bypass secure channel)
+
+```c
+bool send_to_ap2(const uint8_t *data, uint32_t len, bool use_flexio); /* LPUART or FlexIO TX */
+bool recv_from_ap2(uint8_t *buf,  uint32_t len, bool use_flexio);     /* LPUART or FlexIO RX */
 ```
 
 ---

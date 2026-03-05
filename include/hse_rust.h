@@ -229,6 +229,85 @@ bool Hse_HmacVerify(uint32_t key_handle, uint8_t hash_algo,
                     const uint8_t *input, uint32_t input_len,
                     const uint8_t *tag, uint32_t tag_len);
 
+/* -------------------------------------------------------------------------
+ * Plain-transport / secure-channel API  (communication_middleware.rs)
+ * ------------------------------------------------------------------------- */
+
+/**
+ * @brief  Encrypt and transmit @p len plaintext bytes to the AP over LPUART.
+ *
+ * Routes through the AES-CBC-128 + CMAC-128 secure channel.
+ * @p len must be a non-zero multiple of 16 and ≤ 224.
+ * Requires @ref secure_comm_init_she_keys or @ref secure_comm_init first.
+ *
+ * @return  true on success, false on any error.
+ */
+bool send_to_ap(const uint8_t *data, uint32_t len);
+
+/**
+ * @brief  Transmit @p len bytes to the AP with backend selection.
+ *
+ * Plain (unencrypted) transport.  When @p use_flexio is false the data is
+ * sent over LPUART; when true over the FlexIO TX channel.
+ *
+ * @return  true on success, false on any error.
+ */
+bool send_to_ap2(const uint8_t *data, uint32_t len, bool use_flexio);
+
+/**
+ * @brief  Receive and decrypt a secure frame from the AP over LPUART.
+ *
+ * @p len is the expected **plaintext** length (multiple of 16, ≤ 224).
+ * The wire frame consumed is @p len + 32 bytes.
+ * Requires @ref secure_comm_init_she_keys or @ref secure_comm_init first.
+ *
+ * @return  true on success, false on transport / CMAC mismatch / error.
+ */
+bool recv_from_ap(uint8_t *buf, uint32_t len);
+
+/**
+ * @brief  Receive @p len bytes from the AP with backend selection.
+ *
+ * Plain (unencrypted) transport.  When @p use_flexio is false data is
+ * received via LPUART; when true via the FlexIO RX channel.
+ *
+ * @return  true on success, false on any error.
+ */
+bool recv_from_ap2(uint8_t *buf, uint32_t len, bool use_flexio);
+
+/**
+ * @brief  HMAC-authenticate and encrypt @p len bytes of data for the AP.
+ *
+ * Protocol:
+ *   1. Compute HMAC-SHA-256 over @p data with the built-in REQ_SAVE_HMAC_KEY.
+ *   2. Form plaintext payload: data || HMAC-SHA-256.
+ *   3. Encrypt-then-CMAC via @ref secure_send_to_ap_encrypted.
+ *
+ * @p len must be a non-zero multiple of 16 and ≤ 192 (to leave 32 bytes
+ * for the HMAC tag within the 224-byte plaintext limit).
+ *
+ * @return  true on success, false on any error.
+ */
+bool req_save_data(const uint8_t *data, uint32_t len);
+
+/**
+ * @brief  Receive, decrypt, and HMAC-verify data from the AP.
+ *
+ * Protocol (reverse of @ref req_save_data):
+ *   1. Receive and decrypt the encrypted frame (wire: @p data_len + 32 + 32 B).
+ *   2. Verify the HMAC-SHA-256 tag appended to the plaintext.
+ *   3. Send a 16-byte ack back via the secure channel: ack[0]=1 ok, 0=fail.
+ *   4. On success, copy verified data to @p buf and set @p *out_len.
+ *
+ * @p data_len must be a non-zero multiple of 16 and ≤ 192.
+ *
+ * @param  buf       Output buffer (must be ≥ @p data_len bytes, not NULL).
+ * @param  data_len  Expected data length in bytes (multiple of 16, ≤ 192).
+ * @param  out_len   Receives the data byte count on success (must not be NULL).
+ * @return           true on success, false on any error or HMAC mismatch.
+ */
+bool req_saved_data(uint8_t *buf, uint32_t data_len, uint32_t *out_len);
+
 #ifdef __cplusplus
 }
 #endif

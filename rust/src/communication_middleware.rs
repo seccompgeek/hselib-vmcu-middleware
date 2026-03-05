@@ -45,9 +45,9 @@ use crate::ffi::{
     IsKeyCatalogFormatted, LpuartStatus, LpuartUserConfig, Lpuart_Uart_Ip_AsyncReceive,
     Lpuart_Uart_Ip_AsyncSend, Lpuart_Uart_Ip_Deinit, Lpuart_Uart_Ip_GetReceiveStatus,
     Lpuart_Uart_Ip_GetTransmitStatus, Lpuart_Uart_Ip_Init, ParseKeyCatalogs,
-    RAM_AES_GROUP1_SLOT0, RAM_AES_GROUP1_SLOT1,
+    RAM_AES_GROUP1_SLOT0, RAM_AES_GROUP1_SLOT1, RAM_HMAC_GROUP1_SLOT2,
 };
-use crate::hse::{self, HseError, key_flags};
+use crate::hse::{self, HseError, HseHashAlgo, key_flags};
 use core::sync::atomic::{AtomicU32, Ordering};
 
 // =============================================================================
@@ -335,20 +335,24 @@ fn make_recv_slice<'a>(buf: *mut u8, len: u32) -> Option<&'a mut [u8]> {
 
 // ── send_to_ap / send_to_ap2 ──────────────────────────────────────────────────
 
-/// Transmit `len` bytes from `data` to the application processor over LPUART.
+/// Encrypt and transmit `len` bytes from `data` to the application processor
+/// over LPUART via the secure channel.
 ///
-/// Returns `true` on success, `false` on any error (null pointer, oversized
-/// transfer, or driver failure).
+/// `len` must be a non-zero multiple of 16 and ≤ 224.  Requires
+/// [`secure_init`] to have been called first.
+///
+/// Returns `true` on success, `false` on any error.
 ///
 /// C declaration (hse_rust.h):
 ///   `bool send_to_ap(const uint8_t *data, uint32_t len);`
 #[no_mangle]
 pub extern "C" fn send_to_ap(data: *const u8, len: u32) -> bool {
-    let buf = match make_send_slice(data, len) {
-        Some(s) => s,
-        None => return false,
-    };
-    send_data(UartBackend::Lpuart, buf).is_ok()
+    if data.is_null() || len == 0 || len % 16 != 0 || len > MAX_SECURE_PLAINTEXT as u32 {
+        return false;
+    }
+    // SAFETY: non-null, len > 0 checked above.
+    let buf = unsafe { core::slice::from_raw_parts(data, len as usize) };
+    secure_send(UartBackend::Lpuart, buf).is_ok()
 }
 
 /// Transmit `len` bytes from `data` to the application processor, with
@@ -377,20 +381,24 @@ pub extern "C" fn send_to_ap2(data: *const u8, len: u32, use_flexio: bool) -> bo
 
 // ── recv_from_ap / recv_from_ap2 ─────────────────────────────────────────────
 
-/// Receive `len` bytes from the application processor into `buf` over LPUART.
+/// Receive and decrypt a secure frame from the application processor over
+/// LPUART.  `len` is the expected **plaintext** length (must be a non-zero
+/// multiple of 16, ≤ 224).  The frame received on the wire is `len + 32` bytes
+/// (IV + ciphertext + CMAC).
 ///
-/// Returns `true` on success, `false` on any error (null pointer, oversized
-/// transfer, or driver failure).
+/// Requires [`secure_init`] to have been called first.
+/// Returns `true` on success, `false` on any error.
 ///
 /// C declaration (hse_rust.h):
 ///   `bool recv_from_ap(uint8_t *buf, uint32_t len);`
 #[no_mangle]
 pub extern "C" fn recv_from_ap(buf: *mut u8, len: u32) -> bool {
-    let slice = match make_recv_slice(buf, len) {
-        Some(s) => s,
-        None => return false,
-    };
-    receive_data(UartBackend::Lpuart, slice).is_ok()
+    if buf.is_null() || len == 0 || len % 16 != 0 || len > MAX_SECURE_PLAINTEXT as u32 {
+        return false;
+    }
+    // SAFETY: non-null, len > 0 checked above.
+    let slice = unsafe { core::slice::from_raw_parts_mut(buf, len as usize) };
+    secure_receive(UartBackend::Lpuart, slice, len as usize).is_ok()
 }
 
 /// Receive `len` bytes from the application processor into `buf`, with
@@ -419,11 +427,16 @@ pub extern "C" fn recv_from_ap2(buf: *mut u8, len: u32, use_flexio: bool) -> boo
 
 // ── req_save_data / req_saved_data ────────────────────────────────────────────
 
-/// Request that the application processor persists `len` bytes from `data`.
+/// Ask the AP to persist `len` bytes from `data`.
 ///
-/// Currently implemented as a send over LPUART.  The protocol-level
-/// framing (command byte, acknowledgement, etc.) will be layered on top
-/// in a future revision.
+/// Protocol:
+/// 1. Compute HMAC-SHA-256 over `data` using the compiled-in `REQ_SAVE_HMAC_KEY`.
+/// 2. Form a plaintext payload: `data (len B) || HMAC (32 B)`.
+/// 3. Encrypt-then-CMAC the payload via [`secure_send`] (AES-CBC-128 + CMAC-128).
+///
+/// `len` must be a non-zero multiple of 16 and ≤ 192 so that the
+/// `len + 32` byte payload stays within the 224-byte [`MAX_SECURE_PLAINTEXT`]
+/// limit.  Requires [`secure_init`] to have been called first.
 ///
 /// Returns `true` on success, `false` on any error.
 ///
@@ -431,30 +444,104 @@ pub extern "C" fn recv_from_ap2(buf: *mut u8, len: u32, use_flexio: bool) -> boo
 ///   `bool req_save_data(const uint8_t *data, uint32_t len);`
 #[no_mangle]
 pub extern "C" fn req_save_data(data: *const u8, len: u32) -> bool {
-    let buf = match make_send_slice(data, len) {
-        Some(s) => s,
-        None => return false,
-    };
-    send_data(UartBackend::Lpuart, buf).is_ok()
+    if data.is_null() || len == 0 || len % 16 != 0 || len > MAX_REQ_SAVE_DATA as u32 {
+        return false;
+    }
+    let hmac_handle = SAVE_HMAC_KEY_HANDLE.load(Ordering::Relaxed);
+    if hmac_handle == INVALID_KEY_HANDLE {
+        return false;
+    }
+    let n = len as usize;
+    // Stack-allocate the full payload: data (n B) || HMAC-SHA-256 (32 B).
+    let mut payload = [0u8; MAX_SECURE_PLAINTEXT];
+    // SAFETY: non-null and len > 0 checked above.
+    let data_slice = unsafe { core::slice::from_raw_parts(data, n) };
+    payload[..n].copy_from_slice(data_slice);
+
+    // Generate HMAC over the data portion into payload[n..n+32].
+    // split_at_mut gives non-overlapping borrows into the same array.
+    {
+        let (data_part, tag_part) = payload[..n + HMAC_TAG_SIZE].split_at_mut(n);
+        if hse::hmac_generate(
+            hmac_handle,
+            HseHashAlgo::Sha2_256,
+            data_part,
+            tag_part,
+        ).is_err() {
+            return false;
+        }
+    }
+
+    // Encrypt-then-CMAC the full authenticated payload.
+    secure_send(UartBackend::Lpuart, &payload[..n + HMAC_TAG_SIZE]).is_ok()
 }
 
-/// Request that the application processor returns previously saved data into
-/// `buf` (up to `len` bytes).
+/// Ask the AP to return previously saved data into `buf`.
 ///
-/// Currently implemented as a receive over LPUART.  The protocol-level
-/// framing will be layered on top in a future revision.
+/// Protocol (reverse of [`req_save_data`]):
+/// 1. Receive and decrypt an encrypted frame via [`secure_receive`].
+///    The decrypted plaintext is `data (data_len B) || HMAC-SHA-256 (32 B)`.
+/// 2. Verify the HMAC over the data portion using `REQ_SAVE_HMAC_KEY`.
+/// 3. Send a 16-byte acknowledgement frame back via [`secure_send`]:
+///    `ack[0] = 1` if HMAC verified, `ack[0] = 0` if it failed.
+/// 4. Copy the verified data to `buf` and set `*out_len = data_len`.
 ///
-/// Returns `true` on success, `false` on any error.
+/// `data_len` must be a non-zero multiple of 16 and ≤ 192.  The wire frame
+/// received is `data_len + 32 + 32` bytes (IV16 + ciphertext(data+HMAC) + CMAC16).
+///
+/// Returns `true` on success, `false` on any error (transport, CMAC mismatch,
+/// or HMAC mismatch).
 ///
 /// C declaration (hse_rust.h):
-///   `bool req_saved_data(uint8_t *buf, uint32_t len);`
+///   `bool req_saved_data(uint8_t *buf, uint32_t data_len, uint32_t *out_len);`
 #[no_mangle]
-pub extern "C" fn req_saved_data(buf: *mut u8, len: u32) -> bool {
-    let slice = match make_recv_slice(buf, len) {
-        Some(s) => s,
-        None => return false,
-    };
-    receive_data(UartBackend::Lpuart, slice).is_ok()
+pub extern "C" fn req_saved_data(buf: *mut u8, data_len: u32, out_len: *mut u32) -> bool {
+    if buf.is_null()
+        || out_len.is_null()
+        || data_len == 0
+        || data_len % 16 != 0
+        || data_len > MAX_REQ_SAVE_DATA as u32
+    {
+        return false;
+    }
+    let hmac_handle = SAVE_HMAC_KEY_HANDLE.load(Ordering::Relaxed);
+    if hmac_handle == INVALID_KEY_HANDLE {
+        return false;
+    }
+
+    let n = data_len as usize;
+    let payload_len = n + HMAC_TAG_SIZE; // what secure_receive will decrypt
+
+    // Receive the encrypted frame and decrypt into a local buffer.
+    // secure_receive verifies CMAC before decrypting; returns Err on any failure.
+    let mut tmp = [0u8; MAX_SECURE_PLAINTEXT];
+    if secure_receive(UartBackend::Lpuart, &mut tmp[..payload_len], payload_len).is_err() {
+        return false;
+    }
+
+    // Verify the HMAC-SHA-256 appended by the sender.
+    let hmac_ok = hse::hmac_verify(
+        hmac_handle,
+        HseHashAlgo::Sha2_256,
+        &tmp[..n],
+        &tmp[n..n + HMAC_TAG_SIZE],
+    ).is_ok();
+
+    // Send verification result back: 16-byte block, ack[0] = 1 ok / 0 fail.
+    let mut ack = [0u8; AES_BLOCK_SIZE];
+    ack[0] = if hmac_ok { 1 } else { 0 };
+    let _ = secure_send(UartBackend::Lpuart, &ack); // best-effort; don't mask hmac result
+
+    if hmac_ok {
+        // SAFETY: buf is non-null; caller guarantees ≥ data_len writable bytes.
+        unsafe {
+            core::ptr::copy_nonoverlapping(tmp.as_ptr(), buf, n);
+            *out_len = n as u32;
+        }
+        true
+    } else {
+        false
+    }
 }
 
 // =============================================================================
@@ -488,6 +575,24 @@ const IV_SIZE: usize = 16;
 /// fits exactly within the [`MAX_TRANSFER_LEN`] limit of 256 bytes.
 pub const MAX_SECURE_PLAINTEXT: usize = 224;
 
+/// HMAC-SHA-256 tag size in bytes.
+const HMAC_TAG_SIZE: usize = 32;
+
+/// Maximum data bytes accepted by [`req_save_data`] / [`req_saved_data`].
+///
+/// The plaintext payload is `data (n B) || HMAC-SHA-256 (32 B)`, so
+/// `n + HMAC_TAG_SIZE` must not exceed [`MAX_SECURE_PLAINTEXT`] (224).
+pub const MAX_REQ_SAVE_DATA: usize = MAX_SECURE_PLAINTEXT - HMAC_TAG_SIZE; // = 192
+
+/// Compiled-in 32-byte HMAC-SHA-256 key shared between HSE and the AP.
+/// Both sides must agree on this value to verify `req_save_data` payloads.
+const REQ_SAVE_HMAC_KEY: [u8; 32] = [
+    0xa5, 0xb4, 0xc3, 0xd2, 0xe1, 0xf0, 0x11, 0x22,
+    0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa,
+    0xbb, 0xcc, 0xdd, 0xee, 0xff, 0x00, 0x12, 0x34,
+    0x56, 0x78, 0x9a, 0xbc, 0xde, 0xf0, 0x11, 0x23,
+];
+
 /// `HSE_INVALID_KEY_HANDLE` sentinel — key slot not yet initialised.
 const INVALID_KEY_HANDLE: u32 = 0xFFFF_FFFF;
 
@@ -496,6 +601,9 @@ static CIPHER_KEY_HANDLE: AtomicU32 = AtomicU32::new(INVALID_KEY_HANDLE);
 
 /// Key handle for the CMAC authentication key, stored after a successful [`secure_init`].
 static MAC_KEY_HANDLE: AtomicU32 = AtomicU32::new(INVALID_KEY_HANDLE);
+
+/// Key handle for the req_save_data HMAC key, stored after a successful [`secure_init`].
+static SAVE_HMAC_KEY_HANDLE: AtomicU32 = AtomicU32::new(INVALID_KEY_HANDLE);
 
 // =============================================================================
 // Error type
@@ -514,8 +622,12 @@ pub enum SecureCommError {
     MacGenerateFailed(HseError),
     /// CMAC tag verification failed: frame was tampered or the wrong key was used.
     MacVerifyFailed,
+    /// HMAC-SHA-256 tag generation failed (used by [`req_save_data`]).
+    HmacGenerateFailed(HseError),
+    /// HMAC-SHA-256 tag verification failed: data was tampered or wrong key.
+    HmacVerifyFailed,
     /// Plaintext length is zero, not a multiple of 16,
-    /// or exceeds [`MAX_SECURE_PLAINTEXT`].
+    /// or exceeds the applicable limit.
     InvalidLength,
     /// [`secure_init`] has not been called or it returned an error.
     NotInitialized,
@@ -547,10 +659,11 @@ pub enum SecureCommError {
 /// The RAM catalog group-1 contains 10 × AES-128 slots (index from the
 /// `HSE_DEMO_RAM_KEY_CATALOG_CFG` definition in `hse_b_catalog_formatting.h`).
 ///
-/// | Purpose       | HSE RAM group | Slot | Handle       | Allowed modes |
-/// |---------------|---------------|------|--------------|---------------|
-/// | CBC cipher    | 1             | 0    | `0x020100`   | CBC only      |
-/// | CMAC          | 1             | 1    | `0x020101`   | Any (MAC use) |
+/// | Purpose              | HSE RAM group | Slot | Handle       | Allowed modes       |
+/// |----------------------|---------------|------|--------------|---------------------|
+/// | CBC cipher           | 1             | 0    | `0x020100`   | CBC only            |
+/// | CMAC                 | 1             | 1    | `0x020101`   | Any (MAC use)       |
+/// | req_save HMAC-SHA256 | 1             | 2    | `0x020102`   | SIGN \| VERIFY (HMAC) |
 ///
 /// # Safety
 ///
@@ -603,6 +716,15 @@ pub unsafe fn secure_init(
         mac_key,
     ).map_err(SecureCommError::KeyLoadFailed)?;
     MAC_KEY_HANDLE.store(RAM_AES_GROUP1_SLOT1, Ordering::Relaxed);
+
+    // Step 4: Import HMAC-SHA-256 key for req_save_data / req_saved_data.
+    hse::import_plain_hmac_key(
+        RAM_HMAC_GROUP1_SLOT2,
+        key_flags::SIGN_VERIFY,
+        256, // 32-byte key
+        &REQ_SAVE_HMAC_KEY,
+    ).map_err(SecureCommError::KeyLoadFailed)?;
+    SAVE_HMAC_KEY_HANDLE.store(RAM_HMAC_GROUP1_SLOT2, Ordering::Relaxed);
 
     Ok(())
 }

@@ -429,6 +429,9 @@ pub const RAM_AES_GROUP1_SLOT0: u32 = (2u32 << 16) | (1u32 << 8) | 0;
 /// `GET_KEY_HANDLE(RAM=2, group=1, slot=1)` — secure-comm CMAC key.
 pub const RAM_AES_GROUP1_SLOT1: u32 = (2u32 << 16) | (1u32 << 8) | 1;
 
+/// `GET_KEY_HANDLE(RAM=2, group=1, slot=2)` — req_save_data / req_saved_data HMAC-SHA-256 key.
+pub const RAM_HMAC_GROUP1_SLOT2: u32 = (2u32 << 16) | (1u32 << 8) | 2;
+
 // ── hse_host_import_key.h ─────────────────────────────────────────────────────
 
 extern "C" {
